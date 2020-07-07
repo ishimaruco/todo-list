@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    index
+    <h1>筋トレ</h1>
   </div>
 </template>
 
