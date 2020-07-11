@@ -62,14 +62,12 @@ export default {
 }
 
 module.exports = {
-  modules: ['@nuxtjs/style-resources'],
-  styleResources: {
-  /*
-  ** Global CSS
-  */
-    css: [
-      '@assets/css/style.scss',
-      '@assets/css/reset/reset.css',
-    ],
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "@/assets/scss/style.scss";`
+      }
+    }
   },
-}
+  productionSourceMap: true,
+};
