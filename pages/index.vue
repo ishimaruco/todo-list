@@ -37,9 +37,9 @@
             </li>
           </ul><!-- /.c-list -->
           <div class="p-actionArea">
-            <button class="c-button c-button-primary">All Tasks</button>
-            <button class="c-button c-button-secondary">Active</button>
-            <button class="c-button c-button-secondary">Completed</button>
+            <c-button type="primary">All Tasks</c-button>
+            <c-button type="secondary">Active</c-button>
+            <c-button type="secondary">Completed</c-button>
           </div><!-- /.p-actionArea -->
         </div><!-- /.p-todoContent -->
       </div><!-- /.l-pageBody -->
@@ -48,8 +48,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({})
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import CButton from '@/components/Atoms/c-button.vue'
+
+@Component({
+  components: {
+    CButton,
+  },
+})
+
+export default class PageIndex extends Vue {}
 </script>
 
 <style lang="scss">
@@ -87,25 +95,6 @@ export default Vue.extend({})
 }
 
 // components
-.c-button {
-border: 0;
-background: transparent;
-padding-top: 16px;
-padding-bottom: 16px;
-min-width: 150px;
-text-align: center;
-font-weight: 700;
-box-sizing: border-box;
-border-radius: 100px;
-&.c-button-primary {
-  background: #FD8C7C;
-  color: #fff;
-}
-&.c-button-secondary {
-  background: #fff;
-  border: solid 1px #BDBDBD;
-}
-}
 
 .c-buttonIcon {
 width: 40px;
