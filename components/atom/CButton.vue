@@ -1,5 +1,5 @@
 <template>
-  <button class="c-button" :class="['c-button-${type}']" @click="click">
+  <button class="c-button" :class="[`c-button-${type}`]" @click="click">
     <slot/>
   </button><!-- /.c-button -->
 </template>
@@ -12,10 +12,6 @@ export default class CButton extends Vue {
   @Prop({ type: String, default: '' }) type!:string
   @Emit('c-click')
   private click() {}
-  mounted() {
-    console.log(this.type)
-    console.log('あーあーあーあーあー')
-  }
 }
 </script>
 
