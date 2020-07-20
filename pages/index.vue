@@ -30,7 +30,7 @@
               </label>
               <div class="p-buttonGroup">
                 <button class="c-buttonIcon"><i class="c-icon"><img src="../assets/image/icon/ic_edit.svg" alt=""></i></button>
-                <button class="c-buttonIcon" @click="removeTodo"><i class="c-icon"><img src="../assets/image/icon/ic_delete.svg" alt=""></i></button>
+                <button class="c-buttonIcon" @click="removeTodo(index)"><i class="c-icon"><img src="../assets/image/icon/ic_delete.svg" alt=""></i></button>
               </div><!-- /.p-buttonGroup -->
             </li>
           </ul><!-- /.c-list -->
@@ -56,7 +56,7 @@ export default Vue.extend({
       isDelete: false,
       todo: '',
       todos: [
-        { title: '', id: '', isChecked: true }
+        { title: '', isChecked: true }
       ],
       newItemTitle: ''
     }
@@ -70,10 +70,8 @@ export default Vue.extend({
       this.newItemTitle = ''
       this.saveTodo()
     },
-    removeTodo() {
-      console.log(this.todos)
-      const index = this.todos.indexOf(todos)
-      this.todos.splice(index, 1);
+    removeTodo(index: number) {
+      this.todos.splice(index, 1)
       this.saveTodo()
     },
     showAllTodos() {
