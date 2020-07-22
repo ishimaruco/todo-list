@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <pre>{{ todos }}</pre>
+    <!-- <pre>{{ todos }}</pre> -->
     <div class="l-inner">
       <div class="l-pageHeader">
         <h1 class="c-heading c-headingLv1">TODOリスト</h1>
