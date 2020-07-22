@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="container">
+    <pre>{{ todos }}</pre>
     <div class="l-inner">
       <div class="l-pageHeader">
         <h1 class="c-heading c-headingLv1">TODOリスト</h1>
@@ -26,10 +27,12 @@
             <li v-for="(todo, index) in todos" :key="index" class="c-list_item">
               <label class="c-inputLabel" :class="{ 'todo-is-done': todo.isChecked, }">
                 <input class="c-checkbox" type="checkbox" v-model="todo.isChecked" @change="saveTodo">
-                <p class="c-inputLabel_text">{{ todo.title }}</p>
+                <p v-if="!todo.isEdit" class="c-inputLabel_text">{{ todo.title }}</p>
+                <input class="c-inputLabel_text" type="text" v-else v-model="editModel" />
+                <!-- <textarea v-if="todo.isEdit" v-model="editModel" /> -->
               </label>
               <div class="p-buttonGroup">
-                <button class="c-buttonIcon"><i class="c-icon"><img src="../assets/image/icon/ic_edit.svg" alt=""></i></button>
+                <button class="c-buttonIcon" @click="editTodo(index)"><i class="c-icon"><img src="../assets/image/icon/ic_edit.svg" alt=""></i></button>
                 <button class="c-buttonIcon" @click="removeTodo(index)"><i class="c-icon"><img src="../assets/image/icon/ic_delete.svg" alt=""></i></button>
               </div><!-- /.p-buttonGroup -->
             </li>
@@ -54,18 +57,21 @@ export default Vue.extend({
     return {
       isChecked: false,
       isDelete: false,
+      isEdit: false,
       todo: '',
       todos: [
-        { title: '', isChecked: true }
+        { title: '', isChecked: true, isEdit: false }
       ],
-      newItemTitle: ''
+      newItemTitle: '',
+      editModel: ''
     }
   },
   methods: {
     addTodo() {
       this.todos.push({
         title: this.newItemTitle,
-        isChecked: false
+        isChecked: false,
+        isEdit: false
       })
       this.newItemTitle = ''
       this.saveTodo()
@@ -74,6 +80,16 @@ export default Vue.extend({
       this.todos.splice(index, 1)
       this.saveTodo()
     },
+    editTodo(index: number) {
+      console.log(index)
+      // 編集フォームを出す
+      this.todos[index].isEdit = true
+      // 既存のtitleをコピー
+      this.editModel = this.todos[index].title
+      // this.saveTodo()
+    },
+    // 編集したものを上書く処理
+    // 編集したときの発火
     showAllTodos() {
       console.log('全部見る')
     },
@@ -89,7 +105,10 @@ export default Vue.extend({
       localStorage.setItem('todos', JSON.stringify(this.todos))
     },
     loadTodo() {
-      this.todos = JSON.parse(localStorage.getItem('todos'))
+      const hoge = localStorage.getItem('todos') // APIサーバあとで立てる
+      if (hoge != null) {
+        this.todos = JSON.parse(hoge)
+      }
       if(!this.todos) {
         this.todos = []
       }
@@ -250,6 +269,12 @@ img {
       border: 1px solid #979797;
       border-radius: 50%;
     }
+  }
+}
+input {
+  &.c-inputLabel_text {
+    padding: 0;
+    margin-left: 36px;
   }
 }
 
