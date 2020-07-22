@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="container">
-    <!-- <pre>{{ todos }}</pre> -->
     <div class="l-inner">
       <div class="l-pageHeader">
         <h1 class="c-heading c-headingLv1">TODOリスト</h1>
@@ -28,7 +27,7 @@
               <label class="c-inputLabel" :class="{ 'todo-is-done': todo.isChecked, }">
                 <input class="c-checkbox" type="checkbox" v-model="todo.isChecked" @change="saveTodo">
                 <p v-if="!todo.isEdit" class="c-inputLabel_text">{{ todo.title }}</p>
-                <input class="c-inputLabel_text" type="text" v-else v-model="editModel" />
+                <p v-if="todo.isEdit" class="c-inputLabel_text"><input type="text" v-model="editModel" /></p>
                 <!-- <textarea v-if="todo.isEdit" v-model="editModel" /> -->
               </label>
               <div class="p-buttonGroup">
@@ -87,8 +86,16 @@ export default Vue.extend({
       // 既存のtitleをコピー
       this.editModel = this.todos[index].title
       // this.saveTodo()
+      this.overwriteTodo()
     },
     // 編集したものを上書く処理
+    overwriteTodo() {
+      console.log('上書き')
+    },
+    //
+    editSaveYodo() {
+
+    },
     // 編集したときの発火
     showAllTodos() {
       console.log('全部見る')
@@ -269,12 +276,10 @@ img {
       border: 1px solid #979797;
       border-radius: 50%;
     }
-  }
-}
-input {
-  &.c-inputLabel_text {
-    padding: 0;
-    margin-left: 36px;
+    input {
+      font-size: 24px;
+      padding: 0;
+    }
   }
 }
 
