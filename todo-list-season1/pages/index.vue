@@ -27,7 +27,7 @@
               <label class="c-inputLabel" :class="{ 'todo-is-done': todo.isChecked, }">
                 <input class="c-checkbox" type="checkbox" v-model="todo.isChecked" @change="saveTodo">
                 <p v-if="!todo.isEdit" class="c-inputLabel_text">{{ todo.title }}</p>
-                <p v-if="todo.isEdit" class="c-inputLabel_text"><input type="text" v-model="editModel" /></p>
+                <p v-if="todo.isEdit" class="c-inputLabel_text"><input type="text" @blur="saveEdit(index)" v-model="editModel" /></p>
                 <!-- <textarea v-if="todo.isEdit" v-model="editModel" /> -->
               </label>
               <div class="p-buttonGroup">
@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import Vue from "vue"
-import CButton from '@/components/atom/CButton.vue'
+import CButton from '../components/atom/CButton.vue'
 
 export default Vue.extend({
   data: function(){
@@ -86,15 +86,11 @@ export default Vue.extend({
       // 既存のtitleをコピー
       this.editModel = this.todos[index].title
       // this.saveTodo()
-      this.overwriteTodo()
     },
-    // 編集したものを上書く処理
-    overwriteTodo() {
-      console.log('上書き')
-    },
-    //
-    editSaveYodo() {
-
+    saveEdit(index: number) {
+      this.todos[index].isEdit = false
+      this.todos[index].title = this.editModel
+      console.log(this.editModel)
     },
     // 編集したときの発火
     showAllTodos() {
